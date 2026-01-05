@@ -15,3 +15,15 @@ CREATE TABLE IF NOT EXISTS products (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS bills (
+    bill_id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT NOT NULL,
+    total FLOAT,
+    status enum('open', 'paid', 'lost') NOT NULL DEFAULT 'open',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (client_id) REFERENCES clients(client_id)
+        on delete cascade
+        on update cascade
+);
