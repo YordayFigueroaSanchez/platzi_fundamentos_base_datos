@@ -1,2 +1,5 @@
 # platzi_fundamentos_base_datos
 platzi_fundamentos_base_datos
+
+# Qué es SQL y cuándo usarlo en lugar de Excel
+Para aprender SQL desde cero, les recomiendo tres portales muy útiles y fáciles de usar. El primero es SQLBolt, ideal para comenzar porque te enseña paso a paso y te deja practicar en el navegador. Luego está Mode, que tiene un tutorial muy visual donde puedes escribir consultas y ver resultados al instante. Y por último, Kaggle, donde puedes aprender con ejercicios basados en datos reales y obtener certificados. Los tres son gratuitos y perfectos si estás empezando.
