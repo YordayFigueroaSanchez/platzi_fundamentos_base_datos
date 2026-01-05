@@ -10,3 +10,5 @@ Para aprender SQL desde cero, les recomiendo tres portales muy útiles y fácile
 # Tabla de clientes
 [clientes_create.sql](clientes_create.sql)
 
+# Normalización y relaciones en bases de datos de tiendas
+# Creación visual de esquemas de bases de datos con DBML
