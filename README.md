@@ -58,3 +58,19 @@ CASE
     WHEN [condicion] THEN [resultado]
     ELSE [resultado]
 END
+
+# Cómo llenar tablas usando INSERT INTO SELECT en MySQL
+## Crear tabla 
+```
+CREATE TABLE investment (
+    investment_id integer unsigned primary key auto_increment,
+    product_id integer unsigned not null default 0,
+    investment interger not null deaful 0
+);
+```
+
+## Llenar tabla
+```
+INSERT INTO investments (product_id, investment) 
+SELECT product_id, investment FROM products;
+```

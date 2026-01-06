@@ -329,4 +329,27 @@ where c.name like 'a%'
 group by proveedor
 order by total desc;
 
+-- Como llenar tablas usando INSERT INTO SELECT en MySQL
+desc products;
+CREATE TABLE investment (
+    investment_id int unsigned primary key auto_increment,
+    product_id int unsigned not null,
+    investment int unsigned not null
+);
+DROP TABLE investment;
+CREATE TABLE investments (
+    investment_id integer unsigned primary key auto_increment,
+    product_id integer unsigned not null,
+    investment integer not null default 0
+);
 
+-- llenar la tbala con info de otra tabla
+select p.product_id , p.price * p.stock 
+from products p 
+;
+insert into investments(product_id, investment)  
+select p.product_id , p.price * p.stock 
+from products p 
+;
+select * from investments i 
+;
