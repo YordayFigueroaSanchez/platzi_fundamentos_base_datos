@@ -17,3 +17,8 @@ Para aprender SQL desde cero, les recomiendo tres portales muy útiles y fácile
 # Inserción de datos y manejo de claves duplicadas en MySQL
 # Creación de tablas MySQL realistas con campos únicos y timestamps
 [query/product.sql](query/product.sql)
+# Filtrado de datos con WHERE en SQL
+## nuevo schema
+[class_17/schema_b68ce7b9-9a62-461a-9983-18cf0c11344e.zip](class_17/schema_b68ce7b9-9a62-461a-9983-18cf0c11344e.zip)
+## data para llenar la base
+[class_17/data_e467ad8a-a59e-4c14-bb20-dd48a7ee766b.zip](class_17/data_e467ad8a-a59e-4c14-bb20-dd48a7ee766b.zip)
