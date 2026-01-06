@@ -255,3 +255,15 @@ delete FROM clients
 where false;
 
 delete from clients where client_id = 2;
+
+-- select
+select now();
+select database();
+desc products;
+select p.product_id ,p.name ,p.sku,p.stock from products p where p.price < 100;
+select p.product_id ,p.name ,p.sku,p.stock from products p where p.price between 50 and 70;
+select p.product_id ,p.name ,p.sku,p.stock, p.stock*p.price as total 
+from products p where p.price between 50 and 70;
+select p.product_id ,p.name ,p.sku,p.stock, p.stock*p.price as total 
+from products p where p.price between 50 and 70
+order by total desc;

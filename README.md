@@ -25,3 +25,14 @@ Para aprender SQL desde cero, les recomiendo tres portales muy útiles y fácile
 
 # Comando UPDATE: modificar registros en tablas SQL
 # Borrado lógico y físico de datos en SQL
+
+# Uso del comando SELECT para consultas básicas en SQL
+```
+SELECT [columnas, variables]
+FROM [tablas]
+WHERE [condiciones]
+ORDER BY [columnas]
+HAVING [condiciones]
+ORDER BY [columnas]
+LIMIT [numero]
+```
