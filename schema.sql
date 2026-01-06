@@ -217,3 +217,26 @@ select * from bill_products bp where bp.date_added < '2024-06-06';
 
 select * from bill_products bp where bp.date_added between '2024-01-06' and '2024-04-06 12:00:00';
 
+-- update
+select * from clients c limit 10;
+
+update clients 
+set phone_number = '+529999' 
+where client_id = 4
+;
+
+update clients 
+set phone_number = null 
+where client_id = 4
+;
+
+select * from products p ;
+
+-- agregar una columna stock de tipo int con valor 0 por default
+alter table products add column stock int default 0;
+
+-- agregar valores a la columna stock
+update products p set stock = ROUND(100 * RAND());
+
+-- descontar el stock de un producto desde sql
+update products p set stock = stock - 3 where p.product_id = 1;
