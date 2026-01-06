@@ -15,3 +15,5 @@ Para aprender SQL desde cero, les recomiendo tres portales muy útiles y fácile
 # Tipos de tablas en bases de datos relacionales: catálogo, operación, registro y archivo
 # Modificación de tablas MySQL con ALTER TABLE
 # Inserción de datos y manejo de claves duplicadas en MySQL
+# Creación de tablas MySQL realistas con campos únicos y timestamps
+[query/product.sql](query/product.sql)

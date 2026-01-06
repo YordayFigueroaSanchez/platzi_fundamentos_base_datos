@@ -138,3 +138,20 @@ alter table products add column price float;
 -- actualizar la columna price usando un update por medio de rand()*10
 update products set price = rand()*10;
 
+-- borrar tabla products
+DROP TABLE products;
+
+-- crear la tabla products
+CREATE TABLE IF NOT EXISTS products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    sku VARCHAR(100) NOT NULL UNIQUE,
+    name VARCHAR(50) NOT NULL,
+    slug VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT,
+    price DECIMAL(10,2),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+select * from products p ;
+
