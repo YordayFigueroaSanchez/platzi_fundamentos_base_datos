@@ -12,3 +12,5 @@ Para aprender SQL desde cero, les recomiendo tres portales muy útiles y fácile
 
 # Normalización y relaciones en bases de datos de tiendas
 # Creación visual de esquemas de bases de datos con DBML
+# Tipos de tablas en bases de datos relacionales: catálogo, operación, registro y archivo
+# Modificación de tablas MySQL con ALTER TABLE

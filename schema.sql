@@ -88,3 +88,30 @@ select * from clients;
 select * from products;
 select * from bills;
 select * from bill_products;
+
+-- Modificación de tablas MySQL con ALTER TABLE
+Create table tests (
+    test_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    qty INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+show tables;
+
+describe tests;
+
+alter table tests add column price float;
+describe tests;
+alter table tests drop column price;
+describe tests;
+alter table tests add column price float;
+describe tests;
+alter table tests modify column price decimal(10,3) not null;
+describe tests;
+
+alter table tests rename column price to prices;
+describe tests;
+
+alter table tests rename to testss;
+describe testss;
