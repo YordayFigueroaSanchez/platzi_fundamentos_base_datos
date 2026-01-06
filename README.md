@@ -181,3 +181,24 @@ ALTER TABLE products add column slug_generated varchar(200) as (
 |slug_generated|varchar(200)|YES|||STORED GENERATED|
 
 Si se actualiza el nombre de un producto, el slug_generated se actualiza automaticamente.
+
+## Creación y Uso de Vistas en Bases de Datos MySQL
+
+### agregar columna total a bill_products
+```sql
+ALTER TABLE bill_products add column total float as (price * quantity * (1 - discount/100)) virtual;
+```
+
+### desc bill_products
+|Field|Type|Null|Key|Default|Extra|
+|-----|----|----|---|-------|-----|
+|bill_product_id|int unsigned|NO|PRI||auto_increment|
+|bill_id|int unsigned|NO||||
+|product_id|int unsigned|NO||||
+|date_added|datetime|YES||||
+|quantity|int|YES||1||
+|price|float|NO||||
+|discount|int|NO||0||
+|created_at|timestamp|NO||CURRENT_TIMESTAMP|DEFAULT_GENERATED|
+|updated_at|timestamp|NO||CURRENT_TIMESTAMP|DEFAULT_GENERATED on update CURRENT_TIMESTAMP|
+|total|float|YES|||VIRTUAL GENERATED|

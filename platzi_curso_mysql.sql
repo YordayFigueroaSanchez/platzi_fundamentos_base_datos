@@ -120,3 +120,45 @@ select * from products p where product_id = 1;
 -- actualizar el nombre de un producto
 update products p set name = 'New Pro;duct' where product_id = 1;
 
+-- Creación y Uso de Vistas en Bases de Datos MySQL
+-- seleccionar el price y el discount de un bill_product
+select price, discount from bill_products bp;
+
+-- crea una nueva columna total en la tabla bill_products del tipo virtual 
+ALTER TABLE bill_products add column total float as (price * quantity * (1 - discount/100)) virtual;
+-- desc bill_products
+desc bill_products;
+-- select all de bill_products
+select bp.bill_id, bp.total from bill_products bp;
+
+-- vista
+select 
+    date(bp.date_added) as date,
+    count(bp.bill_id),
+    sum(bp.quantity),
+    avg(bp.discount),
+    max(bp.discount),
+    max(bp.total),
+    ROUND(sum(bp.total)) as total
+from bill_products bp
+group by 1
+order by 1;
+
+-- crear una vista
+create view ventas_diarias_view as (
+    select 
+        date(bp.date_added) as fecha,
+        count(bp.bill_id) cantidad,
+        sum(bp.quantity) cantidad_total,
+        avg(bp.discount) descuento_promedio,
+        max(bp.discount) descuento_maximo,
+        max(bp.total) total_maximo,
+        ROUND(sum(bp.total)) as total
+    from bill_products bp
+    group by 1
+    order by 1
+)
+;
+
+SELECT * from ventas_diarias_view;
+
