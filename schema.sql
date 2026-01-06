@@ -115,3 +115,26 @@ describe tests;
 
 alter table tests rename to testss;
 describe testss;
+
+insert into products (name, slug) values ('botella 100', 'botella-100');
+select * from products p ;
+
+insert into products (name, slug) values 
+('pluma azul', 'pluma-azul'),
+('pluma roja', 'pluma-roja');
+select * from products p ;
+
+-- error por duplicado
+insert ignore into products (name, slug) values ('pluma azul', 'pluma-azul');
+
+show warnings;
+
+insert ignore into products (name, slug) values ('pluma azul', 'pluma-azul')
+on duplicate key update description = 'por duplicado...';
+
+-- agregar la columna price del tipo float a la tabla products
+alter table products add column price float;
+
+-- actualizar la columna price usando un update por medio de rand()*10
+update products set price = rand()*10;
+
