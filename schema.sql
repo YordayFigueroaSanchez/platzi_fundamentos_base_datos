@@ -267,3 +267,66 @@ from products p where p.price between 50 and 70;
 select p.product_id ,p.name ,p.sku,p.stock, p.stock*p.price as total 
 from products p where p.price between 50 and 70
 order by total desc;
+
+-- Funciones agregadoras y agrupación de datos con MySQL
+select COUNT(*) from products p where p.price < 100;
+select SUM(stock) from products;
+select avg(price) from products;
+select sum(price*stock) from products;
+desc clients;
+select email from clients c ;
+-- if en el select
+select email, if(email like '%@gmail.com',1,0)  from clients c ;
+select 
+	email, 
+	if(email like '%@gmail.com',1,0) as gmail,
+	if(email like '%@hotmail.com',1,0) as hotmail
+from clients c ;
+-- uso de case
+select 
+	email, 
+	case
+		when email like '%@gmail.com' then 'gmail'
+		when email like '%@hotmail.com' then 'hotmail'
+		else 'otro'
+	end as proveedor
+from clients c ;
+-- agrupar
+select 
+	case
+		when email like '%@gmail.com' then 'gmail'
+		when email like '%@hotmail.com' then 'hotmail'
+		else 'otro'
+	end as proveedor,
+	COUNT(*) as total
+from clients c 
+group by proveedor;
+-- agrupar y ordenar
+select 
+	case
+		when email like '%@gmail.com' then 'gmail'
+		when email like '%@hotmail.com' then 'hotmail'
+		else 'otro'
+	end as proveedor,
+	COUNT(*) as total
+from clients c 
+group by proveedor
+order by total desc;
+-- agrupar y ordenar
+select 
+	case
+		when email like '%@gmail.com' then 'gmail'
+		when email like '%@hotmail.com' then 'hotmail'
+		when email like '%@kuhic.net' then 'kuhic'
+		when email like '%@mann.com' then 'mann'
+		when email like '%@olson.org' then 'olson'
+		when email like '%@yahoo.com' then 'yahoo'
+		else 'otro'
+	end as proveedor,
+	COUNT(*) as total
+from clients c 
+where c.name like 'a%'
+group by proveedor
+order by total desc;
+
+

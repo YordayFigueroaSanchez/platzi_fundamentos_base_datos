@@ -28,11 +28,33 @@ Para aprender SQL desde cero, les recomiendo tres portales muy útiles y fácile
 
 # Uso del comando SELECT para consultas básicas en SQL
 ```
-SELECT [columnas, variables]
+SELECT [columnas, variables, operacion, funciones]
 FROM [tablas]
 WHERE [condiciones]
 ORDER BY [columnas]
 HAVING [condiciones]
 ORDER BY [columnas]
-LIMIT [numero]
+LIMIT [A] [B]
 ```
+
+# Funciones agregadoras y agrupación de datos con MySQL
+
+## Funciones agregadoras
+- COUNT()
+- SUM()
+- AVG()
+- MAX()
+- MIN()
+
+## Agrupación de datos
+- GROUP BY
+- HAVING
+
+## IF en el SELECT
+- IF()
+
+## Uso de CASE
+CASE
+    WHEN [condicion] THEN [resultado]
+    ELSE [resultado]
+END
