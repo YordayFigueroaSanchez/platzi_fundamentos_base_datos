@@ -54,3 +54,37 @@ select * from clients;
 select * from products;
 select * from bills;
 select * from bill_products;
+
+drop table bill_products;
+drop table bills;
+
+CREATE TABLE IF NOT EXISTS bills (
+    bill_id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT NOT NULL,
+    total FLOAT,
+    status enum('open', 'paid', 'lost') NOT NULL DEFAULT 'open',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE IF NOT EXISTS bill_products (
+    bill_product_id INT AUTO_INCREMENT PRIMARY KEY,
+    bill_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+show tables;
+
+insert into clients (name, email, phone_number) values ('John Doe', 'john.doe@example.com', '123456789');
+insert into products (name, slug, description) values ('Product 1', 'product-1', 'Description 1');
+insert into bills (client_id, total, status) values (1, 100, 'open');
+insert into bill_products (bill_id, product_id, quantity) values (1, 1, 1);
+
+select * from clients;
+select * from products;
+select * from bills;
+select * from bill_products;
