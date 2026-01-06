@@ -152,3 +152,32 @@ ALTER TABLE products add column description_length int as (length(description)) 
 |updated_at|timestamp|NO||CURRENT_TIMESTAMP|DEFAULT_GENERATED on update CURRENT_TIMESTAMP|
 |description_length|int|YES|||VIRTUAL GENERATED|
 
+## Generación de Slugs SEO-Friendly en MySQL
+```sql
+ALTER TABLE products add column slug_generated varchar(200) as (
+    lower(regexp_replace(
+        regexp_replace(
+	        name, 
+	        '[[^a-z]|[:space:]]', 
+	        '-'
+    	), 
+        '[:space:]', 
+        '-'
+    ))
+) stored;
+```
+
+|Field|Type|Null|Key|Default|Extra|
+|-----|----|----|---|-------|-----|
+|product_id|int unsigned|NO|PRI||auto_increment|
+|sku|varchar(20)|NO|UNI|||
+|name|varchar(100)|NO||||
+|slug|varchar(200)|NO|UNI|||
+|description|text|YES||||
+|price|float|NO||0||
+|created_at|timestamp|NO||CURRENT_TIMESTAMP|DEFAULT_GENERATED|
+|updated_at|timestamp|NO||CURRENT_TIMESTAMP|DEFAULT_GENERATED on update CURRENT_TIMESTAMP|
+|description_length|int|YES|||VIRTUAL GENERATED|
+|slug_generated|varchar(200)|YES|||STORED GENERATED|
+
+Si se actualiza el nombre de un producto, el slug_generated se actualiza automaticamente.

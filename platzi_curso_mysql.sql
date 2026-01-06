@@ -77,4 +77,46 @@ select * from products p;
 -- desc products
 desc products;
 
+-- Generación de Slugs SEO-Friendly en MySQL
+select name, slug from products p;
+
+-- Contruir el slug
+select name,lower(replace(name, ' ', '-')) as slug_generated, slug from products p;
+
+-- usando expresiones regulares
+select name,
+    lower(regexp_replace(
+        regexp_replace(
+	        name, 
+	        '[[^a-z]|[:space:]]', 
+	        '-'
+    	), 
+        '[:space:]', 
+        '-'
+    )) as slug_generated,
+    slug
+from products p;
+
+-- agregar columna en la tabla products con el nombre slug_generated que sea el slug generado en modo stored
+ALTER TABLE products add column slug_generated varchar(200) as (
+    lower(regexp_replace(
+        regexp_replace(
+	        name, 
+	        '[[^a-z]|[:space:]]', 
+	        '-'
+    	), 
+        '[:space:]', 
+        '-'
+    ))
+) stored;
+-- select all de products
+select * from products p;
+-- desc products
+desc products;
+
+-- select all de products
+select * from products p where product_id = 1;
+
+-- actualizar el nombre de un producto
+update products p set name = 'New Pro;duct' where product_id = 1;
 
