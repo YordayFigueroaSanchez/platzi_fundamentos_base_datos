@@ -423,5 +423,6 @@ group by b.bill_id
 ;
 
 -- Examen
-
+select sum(p.name ) 
+from products p ;
 

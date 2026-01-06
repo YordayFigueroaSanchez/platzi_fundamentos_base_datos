@@ -83,5 +83,21 @@ WHERE [condiciones]
 
 # Consultas complejas con múltiples tablas usando LEFT JOIN en MySQL
 
+# Backup de la base desdpues de terminado el curso
+[backup/dump-platzi_fundamentos_base_datos-202601061329.zip](backup/dump-platzi_fundamentos_base_datos-202601061329.zip)
+
 # Examen
 ok
+
+# Curso de SQL y MySQL
+## Curso Avanzado de MySQL: Vistas, Triggers y Columnas Generadas
+[Curso Avanzado de MySQL: Vistas, Triggers y Columnas Generadas](https://platzi.com/cursos/sql-mysql/diseno-y-optimizacion-avanzada-de-bases-de-datos-c/)
+### schema
+[docs_curso_2/schema.sql](docs_curso_2/schema.sql)
+### data
+[docs_curso_2/clients.sql](docs_curso_2/clients.sql)
+[docs_curso_2/products.sql](docs_curso_2/products.sql)
+[docs_curso_2/bills.sql](docs_curso_2/bills.sql)
+[docs_curso_2/bill_products.sql](docs_curso_2/bill_products.sql)
+
+## Buenas prácticas avanzadas en MySQL: optimización y superqueries
