@@ -82,3 +82,6 @@ LEFT JOIN [tablas] ON [condiciones]
 WHERE [condiciones]
 
 # Consultas complejas con múltiples tablas usando LEFT JOIN en MySQL
+
+# Examen
+ok

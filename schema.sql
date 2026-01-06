@@ -422,3 +422,6 @@ left join products p
 group by b.bill_id 
 ;
 
+-- Examen
+
+
