@@ -353,3 +353,19 @@ from products p
 ;
 select * from investments i 
 ;
+
+-- Cómo usar Left Join para conectar tablas relacionales
+select * from investments i 
+left join products p on i.product_id = p.product_id 
+limit 1 
+;
+select * from investments i 
+left join products p on i.product_id = p.product_id 
+limit 1 
+;
+select p.product_id as pid, p.name ,i.investment 
+from investments i 
+left join products p on i.product_id = p.product_id 
+order by i.investment desc
+limit 1 
+;

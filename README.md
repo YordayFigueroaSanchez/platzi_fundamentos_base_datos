@@ -74,3 +74,9 @@ CREATE TABLE investment (
 INSERT INTO investments (product_id, investment) 
 SELECT product_id, investment FROM products;
 ```
+
+# Cómo usar Left Join para conectar tablas relacionales
+SELECT [columnas]
+FROM [tablas]
+LEFT JOIN [tablas] ON [condiciones]
+WHERE [condiciones]
