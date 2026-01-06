@@ -240,3 +240,18 @@ update products p set stock = ROUND(100 * RAND());
 
 -- descontar el stock de un producto desde sql
 update products p set stock = stock - 3 where p.product_id = 1;
+
+-- delete
+alter table clients add column active tinyint not null default 1 after phone_number;
+desc clients;
+
+-- borrado suave
+select * from clients c limit 10;
+
+update clients c set active = 0 where c.client_id = 3;
+
+-- borrado fuerte
+delete FROM clients 
+where false;
+
+delete from clients where client_id = 2;

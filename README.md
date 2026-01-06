@@ -24,3 +24,4 @@ Para aprender SQL desde cero, les recomiendo tres portales muy útiles y fácile
 [class_17/data_e467ad8a-a59e-4c14-bb20-dd48a7ee766b.zip](class_17/data_e467ad8a-a59e-4c14-bb20-dd48a7ee766b.zip)
 
 # Comando UPDATE: modificar registros en tablas SQL
+# Borrado lógico y físico de datos en SQL
