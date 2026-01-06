@@ -369,3 +369,56 @@ left join products p on i.product_id = p.product_id
 order by i.investment desc
 limit 1 
 ;
+
+-- Consultas complejas con múltiples tablas usando LEFT JOIN en MySQL
+select 
+	b.bill_id, 
+	b.status, 
+	c.name,
+	COUNT(b.bill_id) as cantidad
+from bills b 
+left join clients c 
+	on b.client_id = c.client_id 
+left join bill_products bp 
+	on bp.bill_id = b.bill_id 
+group by b.bill_id 
+;
+-- total teniendo en cuenta el discount
+select 
+	b.bill_id, 
+	b.status, 
+	c.name,
+	COUNT(b.bill_id) as cantidad,
+	round(sum(bp.quantity * p.price * (1 - bp.discount /100))) as total
+from bills b 
+left join clients c 
+	on b.client_id = c.client_id 
+left join bill_products bp 
+	on bp.bill_id = b.bill_id
+left join products p 
+	on p.product_id = bp.bill_product_id 
+group by b.bill_id 
+;
+
+-- agregar oracion
+select 
+	CONCAT(
+	'El cliente ', 
+	c.name, 
+	' tiene una cuenta ',
+	b.status,
+	' con ',
+	COUNT(b.bill_id),
+	' produsctos y suma $',
+	round(sum(bp.quantity * p.price * (1 - bp.discount /100)))
+	) as resultado
+from bills b 
+left join clients c 
+	on b.client_id = c.client_id 
+left join bill_products bp 
+	on bp.bill_id = b.bill_id
+left join products p 
+	on p.product_id = bp.bill_product_id 
+group by b.bill_id 
+;
+
