@@ -207,3 +207,13 @@ create table if not exists bill_products (
 );
 
 -- select
+select name from clients c where c.name like '%Gibson%';
+
+select name, price from products p where p.price between 500 and 700;
+
+select * from bill_products bp where bp.discount > 0;
+
+select * from bill_products bp where bp.date_added < '2024-06-06';
+
+select * from bill_products bp where bp.date_added between '2024-01-06' and '2024-04-06 12:00:00';
+
