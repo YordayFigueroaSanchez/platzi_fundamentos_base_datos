@@ -101,3 +101,54 @@ ok
 [docs_curso_2/bill_products.sql](docs_curso_2/bill_products.sql)
 
 ## Buenas prácticas avanzadas en MySQL: optimización y superqueries
+
+## Columnas Generadas en MySQL: Automatización de Operaciones
+```sql
+CREATE TABLE example (
+    example_id integer unsigned primary key auto_increment,
+    quantity int not null default 1,
+    price float not null,
+    total float as (quantity * price)
+)
+```
+|Field|Type|Null|Key|Default|Extra|
+|-----|----|----|---|-------|-----|
+|example_id|int unsigned|NO|PRI||auto_increment|
+|quantity|int|NO||1||
+|price|float|NO||||
+|total|float|YES|||VIRTUAL GENERATED|
+
+La columna `total` es una columna generada, es decir, no se almacena en la base de datos, sino que se calcula en tiempo real.
+
+### Agregar columna en modo stored
+```sql
+ALTER TABLE example add column total_stored float as (quantity * price) stored;
+```
+
+|Field|Type|Null|Key|Default|Extra|
+|-----|----|----|---|-------|-----|
+|example_id|int unsigned|NO|PRI||auto_increment|
+|quantity|int|NO||1||
+|price|float|NO||||
+|total|float|YES|||VIRTUAL GENERATED|
+|total_stored|float|YES|||STORED GENERATED|
+
+La diferencia entre `VIRTUAL` y `STORED` es que `VIRTUAL` almacena el resultado de la operación en la base de datos, mientras que `STORED` almacena el resultado de la operación en la base de datos.
+
+### Agregar columna en modo virtual
+```sql
+ALTER TABLE products add column description_length int as (length(description)) virtual;
+```
+### descripcion de la tabla products
+|Field|Type|Null|Key|Default|Extra|
+|-----|----|----|---|-------|-----|
+|product_id|int unsigned|NO|PRI||auto_increment|
+|sku|varchar(20)|NO|UNI|||
+|name|varchar(100)|NO||||
+|slug|varchar(200)|NO|UNI|||
+|description|text|YES||||
+|price|float|NO||0||
+|created_at|timestamp|NO||CURRENT_TIMESTAMP|DEFAULT_GENERATED|
+|updated_at|timestamp|NO||CURRENT_TIMESTAMP|DEFAULT_GENERATED on update CURRENT_TIMESTAMP|
+|description_length|int|YES|||VIRTUAL GENERATED|
+

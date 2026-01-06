@@ -52,5 +52,29 @@ sum(if(country = 'br',1,0)) as br
 from clients c 
 group by gender;
 
+-- Columnas Generadas en MySQL: Automatización de Operaciones
+CREATE TABLE example (
+    example_id integer unsigned primary key auto_increment,
+    quantity int not null default 1,
+    price float not null,
+    total float as (quantity * price)
+);
+
+desc example;
+-- insertar datos
+insert into example (quantity, price) values (1, 10.44),(2, 20.83),(3, 30.55),(4, 40.77),(5, 50.28);
+-- select all de exmples
+select * from example;
+-- agregar columna total_stored
+ALTER TABLE example add column total_stored float as (quantity * price) stored;
+-- descripcion de la tabla example
+desc example;
+
+-- agregar una columna en la tabla products con el nombre description_length que sea el tamaño de la descripcion en modo virtual
+ALTER TABLE products add column description_length int as (length(description)) virtual;
+-- select all de products
+select * from products p;
+-- desc products
+desc products;
 
 
