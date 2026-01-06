@@ -27,3 +27,30 @@ CREATE TABLE IF NOT EXISTS bills (
         on delete cascade
         on update cascade
 );
+
+show tables;
+
+CREATE TABLE IF NOT EXISTS bill_products (
+    bill_product_id INT AUTO_INCREMENT PRIMARY KEY,
+    bill_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (bill_id) REFERENCES bills(bill_id)
+        on delete cascade
+        on update cascade,
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+        on delete cascade
+        on update cascade
+);
+
+insert into clients (name, email, phone_number) values ('John Doe', 'john.doe@example.com', '123456789');
+insert into products (name, slug, description) values ('Product 1', 'product-1', 'Description 1');
+insert into bills (client_id, total, status) values (1, 100, 'open');
+insert into bill_products (bill_id, product_id, quantity) values (1, 1, 1);
+
+select * from clients;
+select * from products;
+select * from bills;
+select * from bill_products;
