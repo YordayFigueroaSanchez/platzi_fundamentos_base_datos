@@ -202,3 +202,24 @@ ALTER TABLE bill_products add column total float as (price * quantity * (1 - dis
 |created_at|timestamp|NO||CURRENT_TIMESTAMP|DEFAULT_GENERATED|
 |updated_at|timestamp|NO||CURRENT_TIMESTAMP|DEFAULT_GENERATED on update CURRENT_TIMESTAMP|
 |total|float|YES|||VIRTUAL GENERATED|
+
+## Creación de Vistas Materializadas en MySQL
+### Crear tabla materializada ooo
+```sql
+CREATE TABLE ventas_diarias_m (
+    fecha date not null unique,
+    cantidad integer,
+    total integer
+);
+```
+
+### Insertar en la tabla `ventas_diarias_m`
+```sql
+INSERT INTO ventas_diarias_m (fecha, cantidad, total)
+SELECT 
+    date(bp.date_added),
+    count(bp.bill_product_id),
+    sum(bp.total)
+FROM bill_products bp
+GROUP BY 1;
+```

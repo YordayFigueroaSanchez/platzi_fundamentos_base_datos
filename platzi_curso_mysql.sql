@@ -162,3 +162,58 @@ create view ventas_diarias_view as (
 
 SELECT * from ventas_diarias_view;
 
+SELECT 
+    date(bp.date_added),
+    count(bp.bill_product_id),
+    sum(bp.total)
+FROM bill_products bp
+GROUP BY 1;
+
+CREATE TABLE ventas_diarias_m (
+    fecha date not null unique,
+    cantidad integer,
+    total integer
+);
+
+INSERT INTO ventas_diarias_m (fecha, cantidad, total)
+SELECT 
+    date(bp.date_added),
+    count(bp.bill_product_id),
+    sum(bp.total)
+FROM bill_products bp
+GROUP BY 1;
+
+select * from ventas_diarias_m;
+
+-- las entradas en bill_products que son de un `ar`
+select * 
+from bill_products bp 
+where bp.bill_id in (
+    select bill_id 
+    from bills b 
+    where b.client_id in (
+        select client_id 
+        from clients c 
+        where c.country = 'ar'
+    )
+);
+
+-- variante usando left join
+select * 
+from bill_products bp 
+left join bills b on bp.bill_id = b.bill_id 
+left join clients c on b.client_id = c.client_id 
+where c.country = 'ar';
+
+-- agregar una columna en la tabla clients con el nombre bill_count que sea el conteo de bills
+ALTER TABLE clients 
+    add column bill_count int
+;
+
+-- llenar la columna bill_count
+update clients c set bill_count = (select count(*) from bills b where b.client_id = c.client_id);   
+
+select * 
+from clients c
+where c.bill_count > 0
+;
