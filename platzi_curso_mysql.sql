@@ -277,8 +277,6 @@ BEGIN
 END$$
 -- Restaurar el delimitador
 ;
-select delimiter;
-delimiter ;|
 -- Consultar para un dia en particular
 select * from ventas_diarias_m where fecha = '2024-03-13';
 -- Agregar registro para probar el trigger
@@ -286,12 +284,6 @@ INSERT INTO bill_products (bill_id,product_id, date_added, price)
 VALUES (3001, 11, '2024-03-13 12:12:12', 34.1);
 -- Consultar para un dia en particular
 select * from ventas_diarias_m where fecha = '2024-03-13';
-
-select 1|
-
-delimiter ;
-
-select 1;
 
 -- Consultar para un dia en particular
 select * from ventas_diarias_m where fecha = '2024-03-13';
@@ -301,3 +293,4 @@ VALUES (3002, 14, '2024-03-13 12:12:12', 34.1);
 -- Consultar para un dia en particular
 select * from ventas_diarias_m where fecha = '2024-03-13';
 
+-- Creación de Vistas Materializadas en MySQL con Triggers

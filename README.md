@@ -293,7 +293,7 @@ values (1,'name1'),(2,'name2'),(3,'name3');
 
 ### Trigger after insert en bill_products
 Se ejecuta lo relacionado con el trigger directo desde la base de datos.
-[trigger.sql](trigger.sql)
+[trigger_after_insert.sql](trigger_after_insert.sql)
 ```sql
 use platzi_curso_mysql;
 ```
@@ -344,3 +344,26 @@ select * from ventas_diarias_m where fecha = '2024-03-13';
 |fecha|cantidad|total|
 |-----|--------|-----|
 |2024-03-13|5|39654|
+
+## Creación de Vistas Materializadas en MySQL con Triggers (after delete)
+[trigger_after_delete.sql](trigger_after_delete.sql)
+### Test del trigger
+Consultar para un dia en particular
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-13';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-13|5|39654|
+
+Eliminar registro para probar el trigger
+```sql
+DELETE FROM bill_products WHERE bill_id = 3002;
+```
+Consultar para un dia en particular
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-13';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-13|3|39585|
