@@ -294,3 +294,25 @@ VALUES (3002, 14, '2024-03-13 12:12:12', 34.1);
 select * from ventas_diarias_m where fecha = '2024-03-13';
 
 -- Creación de Vistas Materializadas en MySQL con Triggers
+select * from bill_products WHERE bill_id = 3002; 
+select * from ventas_diarias_m where fecha = '2024-03-13';
+DELETE FROM bill_products WHERE bill_id = 3002;
+select * from ventas_diarias_m where fecha = '2024-03-13';
+show triggers;
+
+-- trigger despues de update
+select * from bill_products bp where date(bp.date_added) = '2024-03-13' order by rand();
+
+select * from bill_products bp where bp.bill_product_id = 410;
+-- 2024-03-13 19:36:38
+select * from ventas_diarias_m where fecha = '2024-03-13';
+select * from ventas_diarias_m where fecha = '2024-03-16';
+
+UPDATE bill_products
+	SET price=3030.0
+	WHERE bill_product_id=410;
+
+select * from ventas_diarias_m where fecha = '2024-03-13';
+select * from ventas_diarias_m where fecha = '2024-03-16';
+
+show triggers;

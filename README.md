@@ -367,3 +367,75 @@ select * from ventas_diarias_m where fecha = '2024-03-13';
 |fecha|cantidad|total|
 |-----|--------|-----|
 |2024-03-13|3|39585|
+
+## Creación de Vistas Materializadas en MySQL con Triggers (after update)
+[trigger_after_update.sql](trigger_after_update.sql)
+Agregar el trigger desde el motor de basa de datos.
+- Buscar registro en `bill_products`
+```sql
+select * from bill_products bp where bp.bill_product_id = 410;
+```
+|bill_product_id|bill_id|product_id|date_added|quantity|price|discount|created_at|updated_at|total|
+|---------------|-------|----------|----------|--------|-----|--------|----------|----------|-----|
+|410|18|1590|2024-03-13 19:36:38|6|1129.98|10|2026-01-06 15:05:20|2026-01-06 15:05:20|6101.89|
+
+- Fechas en analisis
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-13';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-13|3|39585|
+
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-16';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-16|3|69578|
+
+- Actualizar precio
+```sql
+UPDATE platzi_curso_mysql.bill_products
+	SET price=3030.0
+	WHERE bill_product_id=410;
+```
+
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-13';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-13|3|49846|
+
+- Actualizar fecha
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-13';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-13|3|49846|
+
+Se actualiza la fecha al dia `2024-03-16`.
+
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-13';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-13|2|33484|
+
+
+```sql
+UPDATE bill_products
+	SET date_added='2024-03-16 19:36:38'
+	WHERE bill_product_id=410;
+```
+
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-16';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-16|4|85940|
+
