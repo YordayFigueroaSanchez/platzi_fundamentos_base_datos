@@ -217,3 +217,87 @@ select *
 from clients c
 where c.bill_count > 0
 ;
+
+-- Creación y Uso de Triggers en MySQL para Actualizar Vistas Materializadas
+desc ventas_diarias_m;
+
+select * from ventas_diarias_m;
+-- dia en analisis 
+select * from ventas_diarias_m where fecha = '2024-03-13';
+-- buscar en bill_products
+select * from bill_products bp where date(bp.date_added) = '2024-03-13';
+-- agregar registro
+INSERT INTO bill_products (bill_id,product_id, date_added, price)
+VALUES (3000, 10, '2024-03-13 12:12:12', 34.1);
+
+-- actualizar la tabla ventas_diarias_m
+INSERT INTO ventas_diarias_m (fecha, cantidad, total)
+SELECT 
+    date(bp.date_added),
+    count(bp.bill_product_id),
+    sum(bp.total)
+FROM bill_products bp
+GROUP BY 1;
+
+-- mejora en la query para actualizar la tabla ventas_diarias_m
+INSERT INTO ventas_diarias_m (fecha, cantidad, total)
+SELECT 
+    date(bp.date_added),
+    count(bp.bill_product_id),
+    sum(bp.total)
+FROM bill_products bp
+GROUP BY 1
+ON DUPLICATE KEY UPDATE
+    cantidad = (select count(*) from bill_products bp where date(bp.date_added) = ventas_diarias_m.fecha),
+    total = (select sum(total) from bill_products bp where date(bp.date_added) = ventas_diarias_m.fecha);
+
+-- dia en analisis 
+select * from ventas_diarias_m where fecha = '2024-03-13';
+
+-- Agregar Trigger
+-- Cambiar el delimitador
+
+delimiter ;
+select * from ventas_diarias_m where fecha = '2024-03-13' ;
+
+-- Agregar Trigger
+CREATE TRIGGER mat_view_ventas_diarias_m
+AFTER INSERT ON bill_products
+FOR EACH ROW
+BEGIN
+    INSERT INTO ventas_diarias_m (fecha, cantidad, total)
+    VALUES (
+        date(new.date_added),
+        (select count(*) from bill_products where date(date_added) = date(new.date_added)),
+        (select sum(total) from bill_products where date(date_added) = date(new.date_added))
+    )
+    ON DUPLICATE KEY UPDATE
+        cantidad = values(cantidad),
+        total = values(total);
+END$$
+-- Restaurar el delimitador
+;
+select delimiter;
+delimiter ;|
+-- Consultar para un dia en particular
+select * from ventas_diarias_m where fecha = '2024-03-13';
+-- Agregar registro para probar el trigger
+INSERT INTO bill_products (bill_id,product_id, date_added, price)
+VALUES (3001, 11, '2024-03-13 12:12:12', 34.1);
+-- Consultar para un dia en particular
+select * from ventas_diarias_m where fecha = '2024-03-13';
+
+select 1|
+
+delimiter ;
+
+select 1;
+
+-- Consultar para un dia en particular
+select * from ventas_diarias_m where fecha = '2024-03-13';
+-- Agregar registro para probar el trigger
+INSERT INTO bill_products (bill_id,product_id, date_added, price)
+VALUES (3002, 14, '2024-03-13 12:12:12', 34.1);
+-- Consultar para un dia en particular
+select * from ventas_diarias_m where fecha = '2024-03-13';
+

@@ -223,3 +223,124 @@ SELECT
 FROM bill_products bp
 GROUP BY 1;
 ```
+
+## Creación y Uso de Triggers en MySQL para Actualizar Vistas Materializadas
+```sql
+desc ventas_diarias_m;
+```
+|Field|Type|Null|Key|Default|Extra|
+|-----|----|----|---|-------|-----|
+|fecha|date|NO|PRI|||
+|cantidad|int|YES||||
+|total|int|YES||||
+
+### Como actualizar la tabla `ventas_diarias_m` cuando salta key duplicate
+#### dia en analisis 
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-13';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-13|2|39551|
+
+#### Agregar registro para el dia `2024-03-14` en bill_products
+```sql
+INSERT INTO bill_products (bill_id,product_id, date_added, price)
+VALUES (3000, 10, '2024-03-14 12:12:12', 34.1);
+```
+
+
+#### Error al insertar en la tabla `ventas_diarias_m`
+```sql
+INSERT INTO ventas_diarias_m (fecha, cantidad, total)
+SELECT 
+    date(bp.date_added),
+    count(bp.bill_product_id),
+    sum(bp.total)
+FROM bill_products bp
+GROUP BY 1;
+```
+
+#### Mejora en la query para actualizar la tabla `ventas_diarias_m`
+```sql
+INSERT INTO ventas_diarias_m (fecha, cantidad, total)
+SELECT 
+    date(bp.date_added),
+    count(bp.bill_product_id),
+    sum(bp.total)
+FROM bill_products bp
+GROUP BY 1
+ON DUPLICATE KEY UPDATE
+    cantidad = (select count(*) from bill_products bp where bp.date_added = ventas_diarias_m.fecha),
+    total = (select sum(total) from bill_products bp where bp.date_added = ventas_diarias_m.fecha);
+```
+### Crear trigger after insert en bill_products
+
+### Para agregar el trigger
+Se tiene que cambiar el delimitador que por defaul es `;`
+```sql
+delimiter |
+```
+Despues de agregado el trigger se cambia el delimitador de vuelta a `;`.
+```sql
+delimiter ;
+```
+Se hace el foreach para que el trigger se ejecute por cada registro insertado. Para cubrir los insert que llegan con mas de un registro para insertar.
+```sql
+insert table_name(id, name)
+values (1,'name1'),(2,'name2'),(3,'name3');
+```
+
+### Trigger after insert en bill_products
+Se ejecuta lo relacionado con el trigger directo desde la base de datos.
+[trigger.sql](trigger.sql)
+```sql
+use platzi_curso_mysql;
+```
+Cambiar el delimitador a `|` para que el trigger se ejecute correctamente.
+```sql
+DELIMITER |
+```
+Crear el trigger
+```sql
+CREATE TRIGGER matview_insert
+AFTER INSERT ON bill_products
+FOR EACH ROW
+BEGIN
+    INSERT INTO ventas_diarias_m (fecha, cantidad, total)
+    VALUES (
+        DATE(NEW.date_added),
+        (SELECT COUNT(*) FROM bill_products WHERE DATE(date_added) = DATE(NEW.date_added)),
+        (SELECT SUM(total) FROM bill_products WHERE DATE(date_added) = DATE(NEW.date_added))
+    )
+    ON DUPLICATE KEY UPDATE
+    cantidad = VALUES(cantidad),
+    total = VALUES(total);
+END
+|
+```
+Cambiar el delimitador de vuelta a `;`.
+```sql
+DELIMITER ;
+```
+### Test del trigger
+Consultar para un dia en particular
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-13';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-13|4|39620|
+
+Agregar registro para probar el trigger
+```sql
+INSERT INTO bill_products (bill_id,product_id, date_added, price)
+VALUES (3002, 14, '2024-03-13 12:12:12', 34.1);
+```
+Consultar para un dia en particular
+```sql
+select * from ventas_diarias_m where fecha = '2024-03-13';
+```
+|fecha|cantidad|total|
+|-----|--------|-----|
+|2024-03-13|5|39654|
