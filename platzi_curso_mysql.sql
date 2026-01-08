@@ -348,3 +348,34 @@ WHERE product_id = 100;
 UPDATE products
 SET datajson = JSON_SET(datajson, '$.color', 'red')
 WHERE product_id = 100;
+
+UPDATE products
+SET datajson = '{"brand": "Apple", "hdsize": "128GB", "color": "red"}'
+WHERE rand() < 0.1;
+
+UPDATE products
+SET datajson = '{"brand": "Samsung", "hdsize": "256GB", "color": "blue"}'
+WHERE rand() < 0.1;
+
+UPDATE products
+SET datajson = '{"brand": "Huawei", "hdsize": "512GB", "color": "green"}'
+WHERE rand() < 0.1;
+
+select count(*) from products p where p.datajson is not null;
+select count(*) from products p where p.datajson is null;
+
+SELECT * 
+FROM products 
+WHERE JSON_EXTRACT(datajson, '$.brand') = 'Apple';
+
+UPDATE products
+SET datajson = '{"age": 30, "city": "New York", "address": {"street": "Main St", "zip": "12345"}}'
+WHERE product_id = 100;
+
+select *  from products p where p.product_id = 100;
+
+select datajson->'$.address'  from products p where p.product_id = 100;
+
+select datajson from products where product_id = 100;
+
+select datajson->>'$.address.zip'  from products p where p.product_id = 100;

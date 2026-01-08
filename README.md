@@ -493,3 +493,37 @@ UPDATE products
 SET datajson = JSON_SET(datajson, '$.color', 'red')
 WHERE product_id = 100;
 ```
+
+## Búsqueda y Manipulación de Datos JSON en MySQL
+### Agregar datos JSON
+```sql
+UPDATE products
+SET datajson = '{"brand": "Apple", "hdsize": "128GB", "color": "red"}'
+WHERE rand() < 0.1;
+```
+
+### Seleccionar datos JSON de un producto
+```sql
+SELECT * 
+FROM products 
+WHERE JSON_EXTRACT(datajson, '$.brand') = 'Apple';
+```
+
+### Guardar un JSON dentro de JSON
+```sql
+UPDATE products
+SET datajson = '{"age": 30, "city": "New York", "address": {"street": "Main St", "zip": "12345"}}'
+WHERE product_id = 100;
+```
+
+#### Seleccionar datos JSON de un producto
+```sql
+select datajson from products where product_id = 100;
+```
+```sql
+select datajson->'$.address'  from products p where p.product_id = 100;
+```
+**Tomar la data sin los delimitadores de cadena**
+```sql
+select datajson->>'$.address.zip'  from products p where p.product_id = 100;
+```
