@@ -439,3 +439,25 @@ select * from ventas_diarias_m where fecha = '2024-03-16';
 |-----|--------|-----|
 |2024-03-16|4|85940|
 
+## Llaves e índices en bases de datos MySQL
+### Llaves
+llave primaria
+llave unica
+llave de relacion foranea
+### Indices
+el indice ocupa espacio en el disco duro
+
+#### Crear indice
+```sql
+CREATE INDEX idx_clients_name ON clients(name);
+```
+
+#### Eliminar indice
+```sql
+DROP INDEX idx_clients_name ON clients;
+```
+
+#### Mostrar indices
+```sql
+SHOW INDEXES FROM clients;
+```
