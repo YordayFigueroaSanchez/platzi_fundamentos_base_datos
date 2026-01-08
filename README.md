@@ -461,3 +461,35 @@ DROP INDEX idx_clients_name ON clients;
 ```sql
 SHOW INDEXES FROM clients;
 ```
+
+## Manipulación de Columnas JSON en MySQL: Creación y Modificación
+### Crear columna JSON
+```sql
+ALTER TABLE products ADD COLUMN datajson JSON;
+```
+### Actualizar datos JSON de un producto
+```sql
+UPDATE products
+SET datajson = '{"age": 30, "city": "New York"}'
+WHERE product_id = 100;
+```
+### Remplazar un valor en el JSON
+```sql
+UPDATE products
+SET datajson = JSON_REPLACE(datajson, '$.age', 31)
+WHERE product_id = 100;
+```
+
+### Remover un valor en el JSON
+```sql
+UPDATE products
+SET datajson = JSON_REMOVE(datajson, '$.age')
+WHERE product_id = 100;
+```
+
+### Agregar un valor en el JSON
+```sql
+UPDATE products
+SET datajson = JSON_SET(datajson, '$.color', 'red')
+WHERE product_id = 100;
+```

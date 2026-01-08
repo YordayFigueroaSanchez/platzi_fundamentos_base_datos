@@ -316,3 +316,35 @@ select * from ventas_diarias_m where fecha = '2024-03-13';
 select * from ventas_diarias_m where fecha = '2024-03-16';
 
 show triggers;
+
+-- Manipulación de Columnas JSON en MySQL: Creación y Modificación
+
+select * from products p 
+where p.product_id = 100
+;
+desc products;
+ALTER TABLE products ADD COLUMN datajson JSON;
+
+UPDATE products
+SET datajson = '{"age": 30, "city": "New York"}'
+WHERE product_id = 100;
+
+select *  from products p where p.product_id = 100;
+
+-- Manipulación de Columnas JSON en MySQL: Consultas y Operaciones
+-- cambiar un valor en el json
+UPDATE products
+SET datajson = JSON_REPLACE(datajson, '$.age', 31)
+WHERE product_id = 100;
+
+select *  from products p where p.product_id = 100;
+
+-- remover un valor en el json
+UPDATE products
+SET datajson = JSON_REMOVE(datajson, '$.age')
+WHERE product_id = 100;
+
+-- agregar una nueva clave valor en el json
+UPDATE products
+SET datajson = JSON_SET(datajson, '$.color', 'red')
+WHERE product_id = 100;
