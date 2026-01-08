@@ -527,3 +527,7 @@ select datajson->'$.address'  from products p where p.product_id = 100;
 ```sql
 select datajson->>'$.address.zip'  from products p where p.product_id = 100;
 ```
+
+## Uso del Left Join en MySQL para Consultas Avanzadas
+el orden en el join importa.
+
