@@ -379,3 +379,42 @@ select datajson->'$.address'  from products p where p.product_id = 100;
 select datajson from products where product_id = 100;
 
 select datajson->>'$.address.zip'  from products p where p.product_id = 100;
+
+USE information_schema;
+SHOW TABLES;
+
+SELECT * 
+FROM information_schema.TABLES 
+WHERE TABLE_SCHEMA = 'platzi_curso_mysql';
+
+USE platzi_curso_mysql;
+
+SELECT 
+    TABLE_SCHEMA,
+    TABLE_NAME,
+    TABLE_TYPE,
+    TABLE_ROWS,
+    DATA_LENGTH / (1024 * 1024) AS DATA_LENGTH_IN_MEGABYTES,
+    AVG_ROW_LENGTH / 1024 AS AVERAGE_ROW_LENGTH_IN_KILOBYTES,
+    INDEX_LENGTH / (1024 * 1024) AS INDEX_LENGTH_IN_MEGABYTES
+FROM 
+    information_schema.TABLES
+WHERE 
+    TABLE_SCHEMA = 'platzi_curso_mysql';
+
+CREATE VIEW db_status AS
+SELECT 
+    TABLE_SCHEMA,
+    TABLE_NAME,
+    TABLE_TYPE,
+    TABLE_ROWS,
+    DATA_LENGTH / (1024 * 1024) AS DATA_LENGTH_IN_MEGABYTES,
+    AVG_ROW_LENGTH / 1024 AS AVERAGE_ROW_LENGTH_IN_KILOBYTES,
+    INDEX_LENGTH / (1024 * 1024) AS INDEX_LENGTH_IN_MEGABYTES
+FROM 
+    information_schema.TABLES
+WHERE 
+    TABLE_SCHEMA = 'platzi_curso_mysql';
+
+select * from db_status ds 
+;

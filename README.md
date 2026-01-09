@@ -584,3 +584,41 @@ Y para usar una base de datos específica:
 USE database_name;
 SHOW TABLES;
 ```
+## Gestión de Información Esquemática en MySQL
+```sql
+USE information_schema;
+SHOW TABLES;
+```
+
+### Explorando la tabla TABLES
+Entre todas las tablas disponibles en Information Schema, una de las más útiles es TABLES. Esta tabla contiene información detallada sobre todas las tablas en todas las bases de datos del servidor:
+
+```sql
+SELECT * 
+FROM information_schema.TABLES 
+WHERE TABLE_SCHEMA = 'platzi_curso_mysql';
+```
+
+### Creando una vista para monitorear el estado de nuestra base de datos
+Podemos crear una vista personalizada que nos muestre la información más relevante de nuestras tablas, incluyendo conversiones de bytes a unidades más legibles:
+
+```sql
+CREATE VIEW db_status AS
+SELECT 
+    TABLE_SCHEMA,
+    TABLE_NAME,
+    TABLE_TYPE,
+    TABLE_ROWS,
+    DATA_LENGTH / (1024 * 1024) AS DATA_LENGTH_IN_MEGABYTES,
+    AVERAGE_ROW_LENGTH / 1024 AS AVERAGE_ROW_LENGTH_IN_KILOBYTES,
+    INDEX_LENGTH / (1024 * 1024) AS INDEX_LENGTH_IN_MEGABYTES
+FROM 
+    information_schema.TABLES
+WHERE 
+    TABLE_SCHEMA = 'platzi_curso_mysql';
+```
+Esta vista nos permite consultar rápidamente el estado de nuestra base de datos:
+
+```sql
+SELECT * FROM db_status;
+```
