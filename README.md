@@ -531,3 +531,56 @@ select datajson->>'$.address.zip'  from products p where p.product_id = 100;
 ## Uso del Left Join en MySQL para Consultas Avanzadas
 el orden en el join importa.
 
+## Engine y encoding
+InnoDB es el engine por defecto.
+utf8mb4 es el encoding por defecto.
+
+## Gestión de Usuarios y Permisos en Bases de Datos MySQL
+```sql
+CREATE USER 'username'@'host' IDENTIFIED BY 'password';
+```
+
+```sql
+CREATE USER 'becoplatzi'@'%' IDENTIFIED BY 'beco123';
+```
+
+### ¿Qué permisos podemos asignar a los usuarios en MySQL?
+Una vez creado el usuario, debemos asignarle permisos específicos. Los permisos más comunes son:
+
+1. CREATE: permite crear nuevas tablas o bases de datos
+2. ALTER: permite modificar la estructura de tablas existentes
+3. DROP: permite eliminar tablas o bases de datos
+4. INSERT: permite insertar datos en las tablas
+5. UPDATE: permite modificar datos existentes
+6. DELETE: permite eliminar registros
+7. SELECT: permite consultar datos
+8. REFERENCES: permite crear relaciones entre tablas
+9. INDEX: permite crear y eliminar índices
+
+Para asignar estos permisos, utilizamos el comando GRANT:
+```sql
+GRANT permission1, permission2, ... ON database_name.table_name TO 'username'@'host' [WITH GRANT OPTION];
+```
+Por ejemplo:
+```sql
+GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, INDEX ON platzisql.* TO 'becoplatzi'@'%' WITH GRANT OPTION;
+```
+
+### ¿Cómo verificar y utilizar los usuarios creados?
+Para ver los usuarios existentes en MySQL:
+```sql
+SELECT host, user FROM mysql.user;
+```
+Para conectarse con un usuario específico:
+```sql
+mysql -u username -p
+```
+Una vez conectado, podemos verificar a qué bases de datos tenemos acceso:
+```sql
+SHOW DATABASES;
+```
+Y para usar una base de datos específica:
+```sql
+USE database_name;
+SHOW TABLES;
+```
