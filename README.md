@@ -662,3 +662,6 @@ mysql -u root -p -d platzi_dos < platzi_sql_schema.sql
 ```
 Este comando ejecutará todas las instrucciones SQL contenidas en el archivo de respaldo en la base de datos especificada.
 
+## Migrations en Bases de Datos con G Framework
+yii
+
