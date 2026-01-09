@@ -665,3 +665,5 @@ Este comando ejecutará todas las instrucciones SQL contenidas en el archivo de 
 ## Migrations en Bases de Datos con G Framework
 yii
 
+## MetaBase
+Pendiente de probar.
