@@ -622,3 +622,43 @@ Esta vista nos permite consultar rápidamente el estado de nuestra base de datos
 ```sql
 SELECT * FROM db_status;
 ```
+
+## Respaldo y exportación de bases de datos con MySQLdump
+### ¿Cómo crear respaldos con MySQLdump?
+Para utilizar MySQLdump, necesitamos acceder a la línea de comandos y ejecutar el programa con los parámetros adecuados. Veamos algunos ejemplos prácticos:
+
+### Respaldo completo (estructura y datos)
+```bash
+mysqldump -u root -p platzi_sql > platzi_sql_complete.sql
+```
+
+### Respaldo de solo estructura (sin datos)
+```bash
+mysqldump -u root -p --no-data platzi_sql > platzi_sql_schema.sql
+```
+Este comando genera un archivo que contiene únicamente la estructura de la base de datos:
+
+- Definiciones de tablas
+- Definiciones de vistas
+- Triggers
+- Otros objetos de la base de datos
+
+### Comentarios de compatibilidad de versiones
+```sql
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+```
+Estos comentarios especiales (delimitados por /*! y */) contienen código que solo se ejecutará en versiones específicas de MySQL. Por ejemplo:
+
+```sql
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER...
+```
+Este código solo se ejecutará en MySQL 5.00.03 o superior, lo que garantiza la compatibilidad entre diferentes versiones.
+
+### ¿Cómo restaurar una base de datos desde un respaldo?
+Restaurar una base de datos desde un archivo de respaldo es un proceso sencillo:
+
+```bash
+mysql -u root -p -d platzi_dos < platzi_sql_schema.sql
+```
+Este comando ejecutará todas las instrucciones SQL contenidas en el archivo de respaldo en la base de datos especificada.
+
